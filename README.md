@@ -413,3 +413,47 @@ find ~ -type f -name "*.xsa"
 The output lists the full paths of matching files. Note the path of the `.xsa` file exported from your Vivado project, as you will select it when creating the platform project in Vitis.
 
 
+### 28. Create a platform project in Vitis
+
+Open **Vitis** and select **Create Platform Project**.
+
+1. Enter a project name and click **Next**.
+2. Select **Create a new platform from hardware (XSA)**.
+3. Browse to and select the `.xsa` file exported from your **SNN Vivado project**.
+4. Set the operating system to **standalone**.
+5. Select **ps7_cortexa9_0** as the processor.
+6. Leave **Generate boot components** checked.
+7. Click **Finish** to create the platform project.
+
+### 29. Create an application project in Vitis
+
+After creating and generating the platform project, select **File → New → Application Project**.
+
+In the wizard, choose **Select a platform from repository**, select the platform you created in the previous step, and click **Next**.
+
+### 30. Select the application domain
+
+On the **Domain** screen, select the existing **standalone_domain** and click **Next**.
+
+### 31. Select the Hello World template
+
+On the **Templates** screen, select **Hello World** and click **Finish**.
+
+This creates a starter bare-metal C application, which you will modify in the next step to control the SNN accelerator.
+
+### 32. Replace the starter application code
+
+Open the provided SNN Hello World C source file in your cloned repository.
+
+In Vitis, open the starter application’s `helloworld.c` file under **src**. Replace its contents with the code from the provided SNN source file, then save the changes.
+
+Ensure that the accelerator and memory base addresses match your exported hardware platform, and that the UART baud rate matches the Python testing script.
+
+### 33. Build and run the application on the FPGA board
+
+Connect the **PYNQ-Z2 board** to your computer using the USB Type-A to Micro-USB Type-B data cable and power on the board.
+
+In Vitis, build the application and resolve any build errors. Once the build completes successfully, select **Run → Run As → Launch on Hardware** to program the FPGA and run the application.
+
+
+
