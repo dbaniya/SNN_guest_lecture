@@ -199,4 +199,35 @@ The outputs are organized as follows:
 
 Save the script and keep the `snn_env` virtual environment activated when running it.
 
+### 9. Train the SNN
+
+Open `snn_mlp.py` in your cloned repository.
+
+Confirm that `ROOT` and `OUT_DIR` point to the dataset and output folders configured in Step 8:
+
+```python
+ROOT = Path("/absolute/path/to/new_training_data")
+OUT_DIR = Path("/absolute/path/to/snn_mlp_model")
+```
+
+Replace the example paths with your actual folder paths, then save the script.
+
+Open a terminal in the folder containing the script. With the `snn_env` virtual environment activated, run:
+
+```bash
+python snn_mlp.py
+```
+
+The script first displays ON/OFF spike visualizations for one image from each class. Close each plot window to continue.
+
+It then caches the image features in RAM and trains the SNN using a 70% training and 30% validation split. Training runs on the GPU if CUDA is available; otherwise, it uses the CPU.
+
+Wait for training and validation to complete. Close the final accuracy plot window to allow the script to save the model, reports, and FPGA weights.
+
+After completion, confirm that the output folder contains `models/`, `plots/`, `reports/`, and `run_info.txt`. The header required for HLS implementation is saved at:
+
+```text
+models/fpga_export/fpga_weights.h
+```
+
 
