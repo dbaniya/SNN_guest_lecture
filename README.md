@@ -246,3 +246,11 @@ Set the top-level function to **`snn_mlp`**. This name must exactly match the fu
 Save the settings before running C simulation or C synthesis.
 
 
+### 13. Select the target FPGA part
+
+During the Vitis HLS project setup, go to the **Solution Configuration** window and select the following FPGA part:
+
+`xc7z020clg400-1`
+
+This is the **Zynq-7020** device used on the **PYNQ-Z2** board.
+
