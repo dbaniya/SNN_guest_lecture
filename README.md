@@ -255,29 +255,40 @@ During the Vitis HLS project setup, go to the **Solution Configuration** window 
 This is the **Zynq-7020** device used on the **PYNQ-Z2** board.
 
 
-
 ### 14. Add the SNN source file
 
 Locate `snn_mlp.cpp` in your cloned repository.
 
-Open your Vitis HLS project and add `snn_mlp.cpp` under **Source**. This file implements the SNN accelerator with the top-level function `snn_mlp`.
+Open your Vitis HLS project and add `snn_mlp.cpp` under **Source**.
 
 ### 15. Add the test bench file
 
-Locate `snn_mlp_tb.cpp` in your cloned repository and keep it in the same folder as `snn_mlp.cpp`.
+Locate `snn_mlp_tb.cpp` in your cloned repository and ensure it is in the same folder as `snn_mlp.cpp`.
 
-In your Vitis HLS project, add `snn_mlp_tb.cpp` under **Test Bench**. This file tests the SNN implementation using precomputed feature values stored in `.txt` files.
+In your Vitis HLS project, add `snn_mlp_tb.cpp` under **Test Bench**. This file tests the SNN implementation using the test dataset.
 
-### 16. Prepare the HLS test dataset
+### 16. Copy the exported model weights
 
-Locate `fpga_test_features` in your cloned repository. Copy it—or extract it if compressed—into the same folder as `snn_mlp.cpp`, `snn_mlp_tb.cpp`, and `fpga_weights.h`. If it is already there, no copy is needed.
+Locate `fpga_weights.h` generated during Python training inside your configured output folder:
 
-Confirm that it contains the following four class folders with `.txt` feature files:
+```text
+models/fpga_export/fpga_weights.h
+```
 
-- `Full Cable`
-- `Left End`
-- `Right End`
-- `No Cable`
+Copy this header into the folder containing:
+
+- `snn_mlp.cpp`
+- `snn_mlp_tb.cpp`
+
+Open your Vitis HLS project and add `fpga_weights.h` under **Source**.
+
+Keep the filename `fpga_weights.h` unchanged so the HLS source code and test bench can locate the exported weights.
+
+### 17. Prepare the HLS test dataset
+
+Locate `fpga_test_features` in your cloned repository. Copy it—or extract it if compressed—into the same folder as the HLS source file, test bench, and `fpga_weights.h`. If it is already there, no copy is needed.
+
+Keep the folder name `fpga_test_features` unchanged and preserve the four class folders and their `.txt` feature files.
 
 In `snn_mlp_tb.cpp`, set `root` to the absolute path of this folder:
 
@@ -287,5 +298,6 @@ const std::string root =
 ```
 
 Replace the example path with the actual folder path, then save the test bench.
+
 
 
