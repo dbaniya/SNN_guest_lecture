@@ -335,3 +335,52 @@ After **Export RTL** finishes, open your Vitis HLS project’s solution folder, 
 Confirm that `export.zip` is present. This ZIP file contains the packaged SNN IP for use in Vivado.
 
 
+### 22. Create the Vivado project and block design
+
+Create a new project in **Vivado** and build the design shown below.
+
+![Vivado block design](block_diagram_cropped.png)
+
+- Add the **Zynq7 Processing System** first, then run **Block Automation** to apply the board settings.
+- Open **Tools → Settings → IP → Repository**, click **Add Repository**, and select the `impl/ip` folder inside your Vitis HLS solution directory.
+- Confirm that the custom **SNN IP (`snn_mlp`)** appears in the **IP Catalog**, then add it and the remaining IP blocks. Connect them as shown in the figure above.
+- Connect the SNN IP’s **AXI master interface (`m_axi_gmem`)** to the memory containing the input features, and its **AXI-Lite control interface** to the Zynq Processing System through the appropriate AXI interconnects.
+- If your design includes the optional **`gpio_rtl`** interface for latency measurement, make it external only if you intend to connect a measurement instrument. An external GPIO requires the corresponding XDC pin constraints.
+- Open the **Address Editor** and confirm that the SNN IP’s AXI control interface has an assigned address. If it appears under **Unassigned**, click **Auto Assign Address**.
+- Confirm that the input feature memory is accessible from both the Processing System and the SNN IP’s AXI master interface, with the intended address mapping.
+
+### 23. Set the top module in Vivado
+
+In Vivado’s **Sources** window, expand **Design Sources**, right-click the appropriate top-level module for your design, and select **Set as Top**.
+
+For a block design, select its generated **HDL wrapper** as the top module. If the wrapper has not been created, right-click the block design and select **Create HDL Wrapper** first.
+
+### 24. Configure a GPIO for inference latency measurement (optional)
+
+If you intend to measure inference latency using an oscilloscope or logic analyzer, make the GPIO interface external and add the following pin constraints to your Vivado `.xdc` file.
+
+**If you do not use this GPIO, do not make the interface external.** No pin constraints are needed for an internal GPIO interface. An XDC file may still be required for other external ports or timing constraints.
+
+For the **PYNQ-Z2**, these constraints connect **`gpio_rtl_tri_io[0]`** to FPGA package pin **U7**, which connects to **physical pin 11** on the 40-pin Raspberry Pi header.
+
+| Identifier | Meaning |
+|---|---|
+| **GPIO17** | Raspberry Pi GPIO signal number |
+| **Pin 11** | Physical position on the 40-pin Raspberry Pi header |
+| **U7** | FPGA package pin connected to it on the PYNQ-Z2 |
+
+**GPIO17 does not mean physical pin 17.**
+
+```tcl
+set_property PACKAGE_PIN U7 [get_ports {gpio_rtl_tri_io[0]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {gpio_rtl_tri_io[0]}]
+```
+
+Ensure that **`gpio_rtl_tri_io[0]`** matches the port name in your HDL wrapper.
+
+Connect the oscilloscope or logic analyzer signal probe to **physical pin 11** and its ground lead to a **GND pin** on the board.
+
+In the Processing System application, configure the GPIO as an output. Drive it high immediately before starting SNN inference and low after inference completes. Measure the pulse duration to determine the elapsed time between these GPIO transitions, including any software overhead.
+
+Apply the constraints before running implementation and generating the bitstream.
+
