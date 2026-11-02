@@ -455,5 +455,45 @@ Connect the **PYNQ-Z2 board** to your computer using the USB Type-A to Micro-USB
 
 In Vitis, build the application and resolve any build errors. Once the build completes successfully, select **Run → Run As → Launch on Hardware** to program the FPGA and run the application.
 
+### 34. Prepare the test images and UART script
 
+After programming the FPGA, locate `new_testing_data` and `send_images_uart_snn.py` in your cloned repository.
+
+Open `send_images_uart_snn.py` and set `ROOT` to the absolute path of your test dataset folder:
+
+```python
+ROOT = Path("/absolute/path/to/new_testing_data")
+```
+
+Replace `/absolute/path/to/new_testing_data` with the actual dataset path on your computer. Confirm that the dataset contains the following class folders:
+
+- `Full Cable`
+- `Left End`
+- `Right End`
+- `No Cable`
+
+Save the changes before running the script.
+
+### 35. Configure the serial port and run the test script
+
+Identify the `/dev/ttyUSB*` port connected to your board and set it as `SERIAL_PORT` in `send_images_uart_snn.py`. For example:
+
+```python
+SERIAL_PORT = "/dev/ttyUSB1"
+BAUD_RATE = 4000000
+```
+
+Replace `/dev/ttyUSB1` with the actual serial port on your computer. For native Windows, use the corresponding COM port, such as `COM3`.
+
+The UART baud rate is **4,000,000 baud (4 Mbaud)** and must match `UART_BAUD` in the Vitis C application.
+
+Ensure no other serial terminal is using the selected port. Open a terminal in the folder containing the script. With the `snn_env` virtual environment activated, run:
+
+```bash
+python send_images_uart_snn.py
+```
+
+The script extracts and quantizes the ON/OFF regional features from each test image, sends them to the FPGA over UART, and receives the classification results.
+
+Observe the predictions, inference times, output logits, overall accuracy, and final confusion matrix printed in the terminal.
 
