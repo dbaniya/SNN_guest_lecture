@@ -254,3 +254,40 @@ During the Vitis HLS project setup, go to the **Solution Configuration** window 
 
 This is the **Zynq-7020** device used on the **PYNQ-Z2** board.
 
+
+
+### 14. Add the SNN source file
+
+Locate `snn_mlp.cpp` in your cloned repository.
+
+Open your Vitis HLS project and add `snn_mlp.cpp` under **Source**. This file implements the SNN accelerator with the top-level function `snn_mlp`.
+
+### 15. Add the test bench file
+
+Locate `snn_mlp_tb.cpp` in your cloned repository and keep it in the same folder as `snn_mlp.cpp`.
+
+In your Vitis HLS project, add `snn_mlp_tb.cpp` under **Test Bench**. This file tests the SNN implementation using precomputed feature values stored in `.txt` files.
+
+Set the `root` path inside the test bench to the absolute path of your `fpga_test_features` folder:
+
+```cpp
+const std::string root =
+    "/absolute/path/to/fpga_test_features";
+
+
+### 16. Prepare the HLS test dataset
+
+Locate `fpga_test_features` in your cloned repository. Copy it—or extract it if compressed—into the same folder as `snn_mlp.cpp`, `snn_mlp_tb.cpp`, and `fpga_weights.h`. If it is already there, no copy is needed.
+
+Confirm that it contains the following four class folders with `.txt` feature files:
+
+- `Full Cable`
+- `Left End`
+- `Right End`
+- `No Cable`
+
+In `snn_mlp_tb.cpp`, set `root` to the absolute path of this folder:
+
+```cpp
+const std::string root =
+    "/absolute/path/to/fpga_test_features";
