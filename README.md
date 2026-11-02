@@ -230,4 +230,19 @@ After completion, confirm that the output folder contains `models/`, `plots/`, `
 models/fpga_export/fpga_weights.h
 ```
 
+### 11. Create a new Vitis HLS project
+
+Open **Vitis HLS** and select **Create New Project**.
+
+Enter a project name and choose a location for the project, then click **Next** to continue through the project wizard.
+
+### 12. Set the top-level function
+
+Set the top-level function to **`snn_mlp`**. This name must exactly match the function in the provided C++ source code that implements the SNN accelerator.
+
+- **Vitis HLS 2020.2:** Set **Top Function** to `snn_mlp` in the project settings.
+- **Vitis 2026.1:** Open **Settings → hls_config.cfg**, locate **`hls.syn.top`** (“Name of the function to be synthesized”), and enter `snn_mlp`.
+
+Save the settings before running C simulation or C synthesis.
+
 
