@@ -158,3 +158,45 @@ The files referenced in the following steps are available inside this cloned rep
 Keep using the `snn_env` virtual environment created in Step 2 when running Python scripts.
 
 
+### 7. Locate the training dataset
+
+Locate `new_training_data` in your cloned repository. If the dataset is compressed, extract it into your project folder.
+
+Confirm that the folder contains the following four class folders:
+
+- `Full Cable`
+- `Left End`
+- `Right End`
+- `No Cable`
+
+Note the absolute path of the `new_training_data` folder, as you will use it in the SNN training script.
+
+### 8. Set the training dataset and output paths
+
+Open the SNN training script in your cloned repository and set `ROOT` to the absolute path of your `new_training_data` folder:
+
+```python
+ROOT = Path("/absolute/path/to/new_training_data")
+```
+
+Replace `/absolute/path/to/new_training_data` with the actual dataset path.
+
+Set `OUT_DIR` to the folder where you want to save the training outputs:
+
+```python
+OUT_DIR = Path("/absolute/path/to/snn_mlp_model")
+```
+
+Replace `/absolute/path/to/snn_mlp_model` with your preferred output path. The script automatically creates this folder and its subfolders.
+
+The outputs are organized as follows:
+
+- **`models/`:** trained model weights and checkpoint
+- **`models/fpga_export/`:** floating-point and INT16 weights, and the `fpga_weights.h` header for FPGA implementation
+- **`plots/`:** ON/OFF spike timelines and training and validation accuracy plot
+- **`reports/`:** training history in JSON and CSV formats, and ON/OFF spike data in JSON format
+- **`run_info.txt`:** training configuration and dataset path
+
+Save the script and keep the `snn_env` virtual environment activated when running it.
+
+
