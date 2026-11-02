@@ -3,7 +3,6 @@
 
 This lab presents a practical workflow for training and deploying a spiking neural network (SNN) on an FPGA to classify images into four classes: Full Cable, Left End, Right End, and No Cable. Images are converted to grayscale, resized to 60 × 80 pixels, and normalized. Sobel filtering generates ON and OFF edge masks, which are averaged over 5 × 5 cells to produce 384 input features. A fully connected SNN with leaky integrate-and-fire (LIF) neurons is trained using PyTorch and snnTorch, with output membrane potentials used for classification. The trained weights and biases are quantized and exported for accelerator implementation and verification in Vitis HLS. The generated RTL is then integrated into a Zynq-based Vivado design. Finally, Python sends preprocessed features over UART to the FPGA board, and the returned predictions, inference times, and membrane scores are used to evaluate hardware performance.
 
-
 ## Requirements
 
 - One of the following options for the Python workflow:
@@ -19,6 +18,7 @@ This lab presents a practical workflow for training and deploying a spiking neur
   - Matplotlib (`matplotlib==3.10.9`)
   - scikit-learn (`scikit-learn==1.9.0`)
   - tqdm (`tqdm==4.67.3`)
+  - pyserial (`pyserial==3.5`)
 - Sufficient RAM to cache the training and validation features
 - AMD/Xilinx development tools: Vitis, Vitis HLS, and Vivado (course instructions use **version 2020.2**)
 - PYNQ-Z2 FPGA board with Zynq-7020 (`xc7z020clg400-1`)
@@ -34,5 +34,6 @@ This lab presents a practical workflow for training and deploying a spiking neur
 The FPGA deployment instructions were prepared using Vitis, Vitis HLS, and Vivado **2020.2**. Newer versions may have different menus, project workflows, or settings. Adjust the steps as needed for your installed software versions.
 
 Installation of the FPGA development tools and access to the FPGA board require separate setup. These tools and the FPGA board are needed for hardware deployment, but are not required to train the SNN in Python.
+
 
 
