@@ -339,7 +339,7 @@ Confirm that `export.zip` is present. This ZIP file contains the packaged SNN IP
 
 Create a new project in **Vivado** and build the design shown below.
 
-![Vivado block design](block_diagram_cropped.png)
+![Vivado block design](vivado_block_diagram.png)
 
 - Add the **Zynq7 Processing System** first, then run **Block Automation** to apply the board settings.
 - Open **Tools → Settings → IP → Repository**, click **Add Repository**, and select the `impl/ip` folder inside your Vitis HLS solution directory.
