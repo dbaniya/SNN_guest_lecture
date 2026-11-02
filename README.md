@@ -300,4 +300,38 @@ const std::string root =
 Replace the example path with the actual folder path, then save the test bench.
 
 
+### 18. Run C synthesis and inspect the report
+
+In Vitis HLS, select **Run C Synthesis**. Once synthesis finishes, open the **Synthesis Summary Report** and examine:
+
+- **Performance estimates:** estimated clock period, latency, and initiation interval
+- **Resource estimates:** BRAM, DSP, flip-flop (FF), and lookup table (LUT) usage
+
+These estimates indicate the SNN accelerator’s expected execution time and FPGA resource requirements.
+
+### 19. Run C simulation and inspect the results
+
+In Vitis HLS, select **Run C Simulation**. In the simulation settings, enable **Clean Build**, then run the simulation.
+
+Once simulation finishes, inspect the predicted classes, output logits, overall accuracy, and confusion matrix to assess the SNN’s classification performance on the test dataset.
+
+The test bench uses up to 10 feature files per class by default, for a maximum of 40 test samples.
+
+### 20. Export the RTL as a Vivado IP
+
+In Vitis HLS, select **Solution → Export RTL**.
+
+In the **Export RTL** window:
+
+- Set the export format to **Vivado IP (.zip)**.
+- Select **VHDL** as the RTL language for evaluating the generated RTL.
+
+Start the export and wait for it to finish.
+
+### 21. Locate the exported IP package
+
+After **Export RTL** finishes, open your Vitis HLS project’s solution folder, then open the `impl` folder.
+
+Confirm that `export.zip` is present. This ZIP file contains the packaged SNN IP for use in Vivado.
+
 
