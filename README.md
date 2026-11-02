@@ -383,3 +383,34 @@ In the Processing System application, configure the GPIO as an output. Drive it 
 
 Apply the constraints before running implementation and generating the bitstream.
 
+### 25. Validate the design and generate the bitstream
+
+In Vivado, open the block design and select **Validate Design**. Resolve any reported errors before continuing.
+
+From the **Flow Navigator**, run the following steps in order:
+
+1. **Run Synthesis**
+2. **Run Implementation**
+3. **Generate Bitstream**
+
+Wait for each step to complete successfully before proceeding to the next.
+
+### 26. Export the hardware platform
+
+Once the bitstream has been generated successfully, select **File → Export → Export Hardware** in Vivado.
+
+In the export wizard, select **Include bitstream**, choose the output location, then click **Next** and **Finish**.
+
+This creates an `.xsa` hardware platform file containing the hardware design and bitstream for use in Vitis.
+
+### 27. Locate the exported XSA file
+
+Open an Ubuntu terminal and run the following command to search your home folder and its subfolders for `.xsa` files:
+
+```bash
+find ~ -type f -name "*.xsa"
+```
+
+The output lists the full paths of matching files. Note the path of the `.xsa` file exported from your Vivado project, as you will select it when creating the platform project in Vitis.
+
+
