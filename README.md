@@ -133,4 +133,28 @@ Complete the installation. **Version 2020.2 is preferred** because it matches th
 **Note:** If these tools and Zynq-7000 device support are already installed from the CNN lab, you do not need to reinstall them. The FPGA tools are required for hardware deployment, but are not needed for Python training.
 
 
+### 6. Clone the course repository
+
+Clone the SNN course repository once to obtain the datasets, source code, and presentation.
+
+For Ubuntu, including Ubuntu running under WSL 2, install Git:
+
+```bash
+sudo apt update
+sudo apt install git
+```
+
+For native Windows, install [Git for Windows](https://git-scm.com/download/win), then open Git Bash or PowerShell.
+
+From your project folder, run the following commands, replacing `YOUR_SNN_REPOSITORY` with the actual repository name:
+
+```bash
+git clone https://github.com/dbaniya/YOUR_SNN_REPOSITORY.git
+cd YOUR_SNN_REPOSITORY
+```
+
+The files referenced in the following steps are available inside this cloned repository, so you do not need to download them individually.
+
+Keep using the `snn_env` virtual environment created in Step 2 when running Python scripts.
+
 
