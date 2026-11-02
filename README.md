@@ -346,7 +346,6 @@ Create a new project in **Vivado** and build the design shown below.
 - Confirm that the custom **SNN IP (`snn_mlp`)** appears in the **IP Catalog**, then add it and the remaining IP blocks. Connect them as shown in the figure above.
 - If your design includes the optional **`gpio_rtl`** interface for latency measurement, make it external only if you intend to connect a measurement instrument. An external GPIO requires the corresponding XDC pin constraints.
 - Open the **Address Editor** and confirm that the SNN IP’s AXI control interface has an assigned address. If it appears under **Unassigned**, click **Auto Assign Address**.
-- Confirm that the input feature memory is accessible from both the Processing System and the SNN IP’s AXI master interface, with the intended address mapping.
 
 ### 23. Set the top module in Vivado
 
