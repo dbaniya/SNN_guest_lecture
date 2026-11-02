@@ -268,13 +268,6 @@ Locate `snn_mlp_tb.cpp` in your cloned repository and keep it in the same folder
 
 In your Vitis HLS project, add `snn_mlp_tb.cpp` under **Test Bench**. This file tests the SNN implementation using precomputed feature values stored in `.txt` files.
 
-Set the `root` path inside the test bench to the absolute path of your `fpga_test_features` folder:
-
-```cpp
-const std::string root =
-    "/absolute/path/to/fpga_test_features";
-
-
 ### 16. Prepare the HLS test dataset
 
 Locate `fpga_test_features` in your cloned repository. Copy it—or extract it if compressed—into the same folder as `snn_mlp.cpp`, `snn_mlp_tb.cpp`, and `fpga_weights.h`. If it is already there, no copy is needed.
@@ -291,3 +284,8 @@ In `snn_mlp_tb.cpp`, set `root` to the absolute path of this folder:
 ```cpp
 const std::string root =
     "/absolute/path/to/fpga_test_features";
+```
+
+Replace the example path with the actual folder path, then save the test bench.
+
+
